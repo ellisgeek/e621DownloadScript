@@ -15,16 +15,6 @@
 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
-#   ~~~~~ Config ~~~~~
- 
-query = raw_input('Search Query (Exactly what you\'d put in the Search Box): ') # terms (exactly what you'd put in the search box)
-path = raw_input('Path to folder image storage directory (Needs Trailing Slash)') # Needs Trailing Slash
- 
-enable_proxy = 0 # 1 = Enable; 0 = Disable
-proxy_protocol = 'socks5' # 'http', 'socks4', 'socks5'
-proxy_addr = 'localhost' # Example: '119.97.151.151'
-proxy_port = 9050 # Example: 8080
- 
 #   ~~~~~ Modules ~~~~~
  
 import re
@@ -32,7 +22,38 @@ import os
 import urllib
 import urllib2
 import string
-import socket
+import argparse
+
+#   ~~~~~ Setup Command Line Arguments ~~~~~
+
+parser = argparse.ArgumentParser(description='Downloads images from e621.net', prog='e621-downloader')
+
+parser.add_argument('--query', dest='query', action='store',
+                   help='Search Query (Exactly what you\'d put in the Search Box)')
+parser.add_argument('--query', dest='query', action='store',
+                   help='Search Query (Exactly what you\'d put in the Search Box)')
+parser.add_argument('--query', dest='query', action='store',
+                   help='Search Query (Exactly what you\'d put in the Search Box)')
+
+args = parser.parse_args()
+
+#arguments = OptionParser()
+#arguments.add_option("-q", "--query", dest="query",
+#                  help="Search Query (Exactly what you\'d put in the Search Box)")
+#arguments.add_option("-p", "--path", dest="path",
+#                  help="Path to store downloaded images (Must include trailing slash")
+#arguments.add_option("-i", "--interactive", dest="interactive",
+#				  help="Run script interactively")
+
+(options, args) = arguments.parse_args()
+
+#   ~~~~~ Config ~~~~~
+ 
+enable_proxy = 0 # 1 = Enable; 0 = Disable
+proxy_protocol = 'socks5' # 'http', 'socks4', 'socks5'
+proxy_addr = 'localhost' # Example: '119.97.151.151'
+proxy_port = 9050 # Example: 8080
+
  
 #   ~~~~~ Variables ~~~~~
  
@@ -41,6 +62,8 @@ loop = 1
 query.replace(' ', '+')
 url = 'https://e621.net/post?tags='+query+'&searchDefault=Search'
 scan_for = '"https://static1.e621.net/data/preview/.*?"'
+query = raw_input('Search Query (Exactly what you\'d put in the Search Box): ') # terms (exactly what you'd put in the search box)
+path = raw_input('Path to image storage directory (Needs Trailing Slash): ') # Needs Trailing Slash
  
 #   ~~~~~ Functions ~~~~~
  
